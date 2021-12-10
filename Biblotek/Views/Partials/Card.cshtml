@@ -1,0 +1,27 @@
+﻿@model Storage.Models.Book.Book
+@{
+    ViewData["Title"] = "Card";
+}
+<style>
+    .book__picture--container{
+        display: flex;
+        justify-content: center;
+        height: 450px;
+        overflow: hidden;
+    }
+    .book__picture{
+        height: 100%;
+        width: auto;
+    }
+</style>
+<div class="card">
+    <div class="book__picture--container">
+        <img class="card-img-top book__picture" src="data:image/jpg;base64, @(Convert.ToBase64String(Model.Picture ?? new byte[0]))" alt="Card image cap">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.Summary</p>
+        <a href="Book/@Model.Id" class="btn btn-primary">Se mere</a>
+    </div>
+</div>
+

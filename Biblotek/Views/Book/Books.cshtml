@@ -1,0 +1,40 @@
+﻿@{
+}
+@model Storage.DTO.View.Book.BookModel;
+<style>
+</style>
+<div class=" offset-md-2 col-md-8">
+
+    <div class="list-group-horizontal row">
+
+        <div class="col-md-2 margin-bottom">
+            <a class="text-white" href="/Books?category=0">
+                <div class="btn-sm btn-primary text-center">
+                    Alle
+                </div>
+            </a>
+        </div>
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-md-2 margin-bottom">
+                <a class="text-white" href="/Books?category=@category.Id">
+                    <div class="btn-sm btn-primary text-center">
+                        @category.Name
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+    <br />
+
+    <div class="row">
+        @foreach (var book in Model.Books)
+        {
+            <div class="col-md-3 margin-bottom">
+                @Html.Partial("../Partials/Card.cshtml", book)
+
+            </div>
+        }
+
+    </div>
+</div>

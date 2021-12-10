@@ -1,0 +1,151 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    .option{
+        background-color: white;
+        border-radius: 5px;
+        border: 1px solid;
+        padding: 5px;
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+<div class="container">
+    <h1>Admin</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Tilføj bog</h3>
+            <input id="t__name" class="form-control" placeholder="Navn" type="text" />
+            <input id="t__author" class="form-control" placeholder="Forfatter" type="text" />
+            <input id="t__isbn" class="form-control" type="text" placeholder="ISBN" />
+            <input id="t__pages" class="form-control" type="number" placeholder="Antal sider" />
+            <input id="t__publishdate" class="form-control" type="date" placeholder="Udgivelses dato" />
+            <textarea id="t__summary" class="form-control" type="text" placeholder="Resume"></textarea>
+            <button onclick="addBook()" class="form-control">Tilføj</button>
+        </div>
+        <div class="col-md-6">
+           <input type="text" class="form-control" placeholder="Søg efter bog" onchange="search(this)"/>
+            <ul style="list-style-type: none; padding: 0" id="searchList">
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Tilføj Regel</h3>
+            <input class="form-control" placeholder="Titel" id="r__titel"/>
+            <textarea class="form-control" placeholder="Beskrivelse" id="r__beskrivelse"></textarea>
+            <button class="form-control" onclick="addRule()">Tilføj</button>
+        </div>
+        <div class="col-md-6">
+            <input placeholder="Søg efter en titel på en regel" id="r__search" class="form-control" onchange="r_search(this)"/>
+            <ul style="list-style-type: none; padding: 0" id="r__list"></ul>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    var searchList = document.getElementById("searchList");
+    var r_searchlist = document.getElementById("r__list");
+
+    function r_search(e) {
+        var search = e.value;
+
+        $.get(`/admin/getRules?search=${search}`).then(function (response) {
+            r_searchlist.innerHTML = "";
+            response.forEach((rule) => {
+                r_searchlist.innerHTML += `<li class='option'><span>${rule.title}</span><div><button onclick='removeRule(${rule.id})' class='btn btn-danger'>Slet</button></div></li>`
+            })
+        })
+    }
+    function removeRule(id) {
+        $.ajax({
+            method: 'DELETE',
+            url: `/admin/deleteRule/${id}`,
+            success: function (response) {
+                console.log(response);
+                r_search(document.getElementById("r__search"));
+            }
+            
+        })
+    }
+    function search(e) {
+        $.get(`/admin/search?name=${e.value}`).then((response) => {
+            searchList.innerHTML = "";
+            response.forEach((book) => {
+                console.log(book.value);
+                searchList.innerHTML += `<li class='option'><span>${book.value}</span><div><a class='btn btn-primary' href='/admin/edit/${book.key}'>Rediger</a><button onclick='removeBook(${book.key})' class='btn btn-danger'>Slet</button></div></li>`
+                console.log(searchList);
+            })
+        })
+    }
+
+    function addRule() {
+        var titel;
+        var description;
+
+        titel = getInputValue("r__titel");
+        description = getInputValue("r__beskrivelse");
+
+        console.log(titel);
+        console.log(description);
+
+        $.post("/admin/addRule", { title: titel, description: description }).then(function (response) {
+            console.log(response);
+        })
+    }
+
+    function addBook() {
+        var name;
+        var author;
+        var isbn;
+        var pages;
+        var publishDate;
+        var summary;
+
+        name = getInputValue("t__name");
+        author = getInputValue("t__author");
+        isbn = getInputValue("t__isbn");
+        pages = getInputValue("t__pages");
+        publishDate = getInputValue("t__publishdate");
+        summary = getInputValue("t__summary");
+
+        var book = {
+            Name: name,
+            Author: author,
+            ISBN: isbn,
+            Pages: pages,
+            PublishDate: publishDate,
+            Summary: summary,
+        };
+
+        $.post("api/book/add", book).then(function succes(response) {
+            console.log(response);
+        }, function error(response) {
+            console.log(response);
+        })
+    }
+
+    function removeBook(bookid) {
+        $.ajax({
+            method: 'delete',
+            url: `api/book/remove/`,
+            data: {
+                id: bookid
+            },
+            success: (response) => {
+                console.log(response);
+            }
+        })
+    }
+    
+    function getInputValue(id) {
+        return document.getElementById(id).value
+    }
+</script>

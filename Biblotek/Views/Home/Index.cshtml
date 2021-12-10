@@ -1,0 +1,32 @@
+﻿@model Storage.DTO.View.Home.HomeModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Velkommen</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div id="cards" class="row col-md-8">
+        @foreach (var book in Model.Books)
+        {
+            <div class="col-md-4 margin-bottom">
+                @Html.Partial("../Partials/Card.cshtml", book)
+            </div>
+        }
+    </div>
+    <div class="col-md-2">
+        <h3 class="text-center col-md-12">Nyeste bøger!</h3>
+        <hr />
+        @foreach (var book in Model.NewestBooks)
+        {
+            <div class="col-md-12 margin-bottom">
+                @Html.Partial("../Partials/Card.cshtml", book)
+            </div>
+        }
+    </div>
+</div>

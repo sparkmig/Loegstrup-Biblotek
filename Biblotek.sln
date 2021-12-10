@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblotek", "Biblotek\Biblotek.csproj", "{0128B625-F7A9-45FD-85B6-F86F1C99D34E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{EE8C1AD2-66C6-4DBE-9782-0AE8B37D995B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage", "Storage\Storage.csproj", "{4FA5D71A-E13B-464F-818B-6F4FCEE64AEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0128B625-F7A9-45FD-85B6-F86F1C99D34E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0128B625-F7A9-45FD-85B6-F86F1C99D34E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0128B625-F7A9-45FD-85B6-F86F1C99D34E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0128B625-F7A9-45FD-85B6-F86F1C99D34E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE8C1AD2-66C6-4DBE-9782-0AE8B37D995B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE8C1AD2-66C6-4DBE-9782-0AE8B37D995B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE8C1AD2-66C6-4DBE-9782-0AE8B37D995B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE8C1AD2-66C6-4DBE-9782-0AE8B37D995B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA5D71A-E13B-464F-818B-6F4FCEE64AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA5D71A-E13B-464F-818B-6F4FCEE64AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA5D71A-E13B-464F-818B-6F4FCEE64AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA5D71A-E13B-464F-818B-6F4FCEE64AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCB89BEF-A74D-4749-81B9-910ED71CE017}
+	EndGlobalSection
+EndGlobal

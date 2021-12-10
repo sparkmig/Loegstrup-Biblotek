@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    .login-image {
+        width: 200px;
+        height: 200px
+    }
+
+    .login-image__container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .input-field__container {
+        margin-top: 10px;
+    }
+</style>
+<div class="container">
+    <div class="col-md-4 offset-md-4">
+        <div class="login-image__container">
+            <img class="login-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png" />
+        </div>
+        <div class="input-field__container">
+            <input class="form-control" id="email" type="email" placeholder="Email" />
+        </div>
+        <div class="input-field__container">
+            <input class="form-control" id="password" type="password" placeholder="Adgangskode" />
+        </div>
+        <div class="input-field__container">
+            <label id="error" class="float-left text-danger"></label>
+            <button onclick="logIn()" class="btn btn-dark float-right">Log ind</button>
+        </div>
+    </div>
+</div>
+<script>
+    var errorMessageElement;
+
+    errorMessageElement = document.getElementById("error")
+
+    function logIn() {
+        var email;
+        var password;
+
+        email = document.getElementById("email").value;
+        password = document.getElementById("password").value;
+
+        $.ajax({
+            url: '/login',
+            method: 'POST',
+            data: {
+                Email: email,
+                Password: password,
+            },
+            success: (response) => {
+                if (response === true) {
+                    location.href = "/admin"
+                }
+                else {
+                    errorMessageElement.innerHTML = "Forkert email eller adgangskode"
+
+                    setTimeout(() => {
+                        errorMessageElement.innerHTML = ""
+                    }, 2000)
+                }
+                console.log(response);
+            }
+        })
+    }
+</script>

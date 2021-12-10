@@ -1,0 +1,13 @@
+﻿@model Storage.Models.Event.Event[]
+
+<div class="container">
+    @foreach (var @event in Model)
+    {
+        <div class="card col-md-4">
+            <h3>@(@event.Name)</h3>
+            <div>
+                @(@event.Description)
+            </div>
+        </div>
+    }
+</div>

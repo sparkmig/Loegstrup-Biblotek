@@ -1,0 +1,28 @@
+﻿@model Storage.Models.Pages.RuleModel[]
+@{
+
+}
+<style>
+    .rules{
+        max-width: 600px;
+        display: flex;
+        justify-content: center;
+    }
+    .rule{
+        text-align: center;
+    }
+</style>
+<div class="container rules">
+    <div class="">
+        @foreach (var rule in Model)
+        {
+            <div class="rule col-md-12">
+                <h1>@rule.Title</h1>
+                <div>
+                    @rule.Description
+                </div>
+            </div>
+            <hr/>
+        }
+    </div>
+</div>

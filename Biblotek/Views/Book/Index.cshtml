@@ -1,0 +1,87 @@
+﻿@model Storage.DTO.Books.BookDTO
+@{
+}
+<div class="col-md-8 offset-md-2">
+    <div>
+        <div class="float-right">
+            <img alt="Billede af bogen" src="data:image/jpg;base64, @Convert.ToBase64String(Model.Picture ?? new byte[0])" />
+        </div>
+
+        <div>
+            <h1>@Model.Name</h1>
+            <p>@Model.Author</p>
+        </div>
+        <div>
+            @Model.Summary
+        </div>
+    </div>
+    <hr />
+
+    <div>
+        <h4>Kategorier: </h4>
+        <div class="row">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-md-2 margin-bottom">
+                    <a class="text-white" href="/Books?category=@category.Id">
+                        <div class="btn-sm btn-primary text-center">
+                            @category.Name
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+    <div>
+        <h4>Kommentarer: </h4>
+        <div>
+            <p><strong>Tilføj Kommentar</strong></p>
+            <input id="email" placeholder="Email" />
+            <br />
+            <input id="name" placeholder="Navn" />
+            <br />
+            <textarea id="text" placeholder="Kommentar"></textarea>
+            <br />
+            <button onclick="submitComment()" class="btn btn-dark">Indsend</button>
+        </div>
+        @foreach (var comment in Model.Comments)
+        {
+            <div>
+                <label><strong>@comment.Name</strong></label>
+                <span>@comment.Text</span>
+            </div>
+            <br />
+        }
+    </div>
+</div>
+<script>
+    function submitComment() {
+        var email = document.getElementById("email").value;
+        var name = document.getElementById("name").value;
+        var text = document.getElementById("text").value;
+
+        var obj = {
+            Id: 0,
+            Name: name,
+            Email: email,
+            Text: text,
+            BookId: @Model.Id,
+            Approoved: false
+        }
+        console.log(obj);
+        var client = $.ajax({
+            method: "POST",
+            url: "/api/book/addcomment",
+            data: JSON.stringify(obj),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+        })
+
+        client.then(function success(response, status) {
+            if (response) {
+                location.reload()
+            }
+        })
+    }
+</script>
